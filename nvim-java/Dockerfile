@@ -6,4 +6,3 @@ RUN git clone https://github.com/mcesar/dotfiles.git /tmp/dotfiles \
     && apk add --no-cache openjdk8
 
 ADD jdt-ls.tar.gz /
-ADD lombok.jar /jdt-ls
