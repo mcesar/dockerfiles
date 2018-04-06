@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ "$1" == "-p" ]; then
+    /bin/busybox ps -o pid='' | grep " $2$"
+else
+    /bin/busybox ps "$@"
+fi

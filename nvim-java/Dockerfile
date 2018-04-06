@@ -6,3 +6,6 @@ RUN git clone https://github.com/mcesar/dotfiles.git /tmp/dotfiles \
     && apk add --no-cache openjdk8
 
 ADD jdt-ls.tar.gz /
+ADD ps /bin
+
+RUN chmod +x /bin/ps
