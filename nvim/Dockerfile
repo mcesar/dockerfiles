@@ -1,6 +1,9 @@
 FROM alpine
 
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
+ADD sof_raiz.pem /usr/local/share/ca-certificates/
+
+RUN update-ca-certificates \
+    && apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
         neovim \
         python \
         nodejs nodejs-npm \
