@@ -1,14 +1,18 @@
 FROM alpine
 
+ENV FZF_DEFAULT_COMMAND=find
+
 ADD sof_raiz.pem /usr/local/share/ca-certificates/
 
-RUN update-ca-certificates \
+RUN apk --no-cache add ca-certificates \
+    && update-ca-certificates \
     && apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
         neovim \
         python \
         nodejs nodejs-npm \
         xclip \
         git \
+        fzf \
     && apk add --no-cache --virtual build-deps \
         python-dev \
         py2-pip \
@@ -35,6 +39,7 @@ RUN update-ca-certificates \
     && curl -k -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
     && update-ca-certificates \
     && nvim --headless +PlugInstall +UpdateRemotePlugins +qall \
+    && git clone https://github.com/junegunn/fzf /root/.fzf \
     && rm /usr/share/nvim/runtime/autoload/htmlcomplete.vim \
     && rm /usr/share/nvim/runtime/ftplugin/html.vim \
     && apk del build-deps build-deps2
