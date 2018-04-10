@@ -3,6 +3,7 @@ FROM alpine
 ENV FZF_DEFAULT_COMMAND=find
 
 ADD sof_raiz.pem /usr/local/share/ca-certificates/
+ADD termpix /bin/termpix
 
 RUN apk --no-cache add ca-certificates \
     && update-ca-certificates \
@@ -22,6 +23,7 @@ RUN apk --no-cache add ca-certificates \
         gcc \
     && pip2 install --trusted-host pypi.python.org --upgrade pip setuptools \
     && pip2 install --trusted-host pypi.python.org neovim \
+    && pip2 install --trusted-host pypi.python.org Pygments \
     && apk add --no-cache \
         python3 \
     && apk add --no-cache --virtual build-deps2 \
