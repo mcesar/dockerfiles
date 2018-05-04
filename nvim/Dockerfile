@@ -1,9 +1,10 @@
 FROM alpine
 
-ENV FZF_DEFAULT_COMMAND=find
+ENV FZF_DEFAULT_COMMAND='fd --type f --exclude .git --exclude node_modules'
 
 ADD sof_raiz.pem /usr/local/share/ca-certificates/
 ADD termpix /bin/termpix
+ADD fd /bin/fd
 
 RUN apk --no-cache add ca-certificates \
     && update-ca-certificates \
