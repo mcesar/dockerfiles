@@ -25,11 +25,17 @@ RUN git clone https://github.com/mcesar/dotfiles.git \
     && cd dotfiles/ \
     && mkdir -p ~/.config \
     && ln -sfv /dotfiles/nvim/ ~/.config/nvim \
-    && curl -k -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
+    && curl -k -fLo ~/.config/nvim/autoload/plug.vim \
+        --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
     && nvim --headless +PlugInstall +UpdateRemotePlugins +qall \
+    && cd /dotfiles/nvim/plugged/LanguageClient-neovim \
+    && sed -i 's/ sh/ bash/' install.sh \
+    && ./install.sh \
+    && sed -i 's/v%(%(\\\\@<!%(/v%(%(\\\\%(/' /dotfiles/nvim/plugged/vimtex/autoload/vimtex/complete.vim \
     && git clone https://github.com/junegunn/fzf /root/.fzf \
     && /root/.fzf/install --all \
     && rm /usr/share/nvim/runtime/autoload/htmlcomplete.vim \
     && rm /usr/share/nvim/runtime/ftplugin/html.vim \
+    && pip3 install neovim-remote \
     && apt-get autoclean && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
